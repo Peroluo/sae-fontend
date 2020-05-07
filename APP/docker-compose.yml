@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  saedemo:
+    image: saedemo:latest
+    ports:
+      - "10000:10000"
+
+    environment:
+      - NODE_ENV=development

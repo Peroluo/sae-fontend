@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HELLO WORLD 自动部署</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 800px;
+        margin: 0 auto;
+        display: flex;
+      }
+      .left {
+        width: 200px;
+      }
+      .button {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: olivedrab;
+        font-size: 20px;
+        color: white;
+        font-weight: bold;
+        border-bottom: 1px solid white;
+      }
+      .right {
+        width: 600px;
+        padding: 40px;
+        background-color: black;
+        color: white;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <div class="button">开始构建</div>
+      <!-- <div class="button">创建服务组</div>
+      <div class="button">创建服务</div>
+      <div class="button">Gitlab分支/tag</div>
+      <div class="button">上传配置文件</div>
+      <div class="button">自动化测试</div>
+      <div class="button">重启服务</div>
+      <div class="button">查看日志</div>
+      <div class="button">查看监控</div> -->
+    </div>
+    <div class="right"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script>
+      const btns = document.getElementsByClassName("button");
+      const writerDel = document.getElementsByClassName("right");
+      const writer = writerDel[0];
+      // 创建socket连接
+      const socket = io();
+
+      socket.on("buildMsg", (msg) => {
+        writer.innerHTML += msg + "<br>";
+      });
+
+      socket.on("logMsg", (msg) => {
+        writer.innerHTML += msg + "<br>";
+      });
+      // 开始构建
+      btns[0].onclick = () => {
+        socket.emit("startBuild", 5000);
+        writer.innerHTML = "";
+      };
+      // 查看日志
+      btns[1].onclick = () => {
+        socket.emit("getLog", 5000);
+        writer.innerHTML = "";
+      };
+    </script>
+  </body>
+</html>
