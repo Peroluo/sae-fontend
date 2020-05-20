@@ -17,6 +17,7 @@ function createSocketServer(app) {
   return server;
 }
 
+// 执行shell脚本
 function runShell(socket, event) {
   const func = (msg) => {
     socket.emit(event, msg);
@@ -33,6 +34,7 @@ function runShell(socket, event) {
   run(cmd, "./", func);
 }
 
+// 执行shell方法
 function run(cmd, dir = "./", func) {
   const setConsoleToClient = func;
   if (cmd.length > 0) {
